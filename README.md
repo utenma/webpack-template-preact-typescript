@@ -2,6 +2,6 @@
 
 Toolchain basic setup featuring
 
-- React 18 with hot reload
-- Typescript 4
+- Preact X
+- Typescript 5
 - Webpack 5
