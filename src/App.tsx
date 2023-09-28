@@ -1,15 +1,34 @@
-import { FC, useState } from "preact/compat"
+import type { FC } from "react";
+import { counter } from "./counter";
 
-export const App = () => {
+export const App: FC = () => {
 
-  const [state, se] = useState(0)
   return (
-    <div>
-      Hello Wsosrssdsdslsd{state}
+    <div
+      css={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8
+      }}
+    >
+      <span>
+        Hello World {counter.value}
+      </span>
       <button
-        onClick={() => se(1)}
+        css={{
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: 'gray',
+          background: 'transparent',
+          ':hover': {
+            color: 'white',
+            backgroundColor: 'gray',
+            borderColor: 'gray'
+          }
+        }}
+        onClick={() => counter.value++}
       >
-        test
+        Count
       </button>
     </div>
   )

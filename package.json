@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack serve --mode=development",
+    "dev": "webpack serve --mode=development",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.11.1",
+    "@preact/signals": "^1.2.1",
     "@prefresh/webpack": "^4.0.0",
     "@types/node": "18.18.0",
     "@types/react": "^18.2.23",
