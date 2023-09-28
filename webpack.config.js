@@ -1,24 +1,36 @@
 // @ts-check
-/** @typedef { import('webpack').Configuration } Configuration*/
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const PreactRefreshPlugin = require('@prefresh/webpack')
 
-/** @returns { Configuration } */
+/** @returns { import('webpack').Configuration } */
 module.exports = (env, argv) => {
     const mode = argv.mode
     const isDevelopment = mode === "development"
     return {
         target: 'web',
-        mode: isDevelopment ? 'development' : 'production',
         entry: './src/index.tsx',
+        output: {
+            filename: '[name].bundle.js',
+            path: path.resolve(__dirname, 'dist'),
+            clean: true
+        },
+        mode: isDevelopment ? 'development' : 'production',
         devtool: 'inline-source-map',
         devServer: {
+            port: 8080,
             hot: true,
             static: './dist',
         },
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: "src/index.html",
+            }),
+            new ForkTsCheckerWebpackPlugin(),
+            new PreactRefreshPlugin(),
+        ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
             /** https://preactjs.com/guide/v10/getting-started#aliasing-in-webpack */
@@ -28,18 +40,6 @@ module.exports = (env, argv) => {
                 "react-dom": "preact/compat",
                 "react/jsx-runtime": "preact/jsx-runtime"
             },
-        },
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: "src/index.html",
-            }),
-            new ForkTsCheckerWebpackPlugin(),
-            new PreactRefreshPlugin(),
-        ],
-        output: {
-            filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'dist'),
-            clean: true
         },
         module: {
             rules: [
@@ -60,7 +60,12 @@ module.exports = (env, argv) => {
                     use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
                 {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    test: /\.svg$/i,
+                    issuer: /\.[jt]sx?$/,
+                    use: ['@svgr/webpack'],
+                },
+                {
+                    test: /\.(png|jpg|jpeg|gif)$/i,
                     type: 'asset/resource',
                 },
                 {
