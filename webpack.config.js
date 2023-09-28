@@ -4,6 +4,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const PreactRefreshPlugin = require('@prefresh/webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 
 /** @returns { import('webpack').Configuration } */
 module.exports = (env, argv) => {
@@ -27,6 +28,14 @@ module.exports = (env, argv) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "src/index.html",
+            }),
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: "public",
+                        to: "./"
+                    }
+                ],
             }),
             new ForkTsCheckerWebpackPlugin(),
             new PreactRefreshPlugin(),
