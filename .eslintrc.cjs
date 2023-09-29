@@ -20,6 +20,12 @@ module.exports = {
     }
   },
   rules: {
-    'react-refresh/only-export-components': "warn"
+    'react-refresh/only-export-components': "warn",
+    "react/no-unknown-property": [
+      "warn",
+      {
+        "ignore": ["css"]
+      }
+    ],
   },
 }
