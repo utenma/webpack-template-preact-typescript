@@ -1,5 +1,5 @@
-import type { FC } from "react";
-import { counter } from "./counter";
+import type { FC } from "react"
+import { counter } from "./counter"
 import { default as Logo } from './logo.svg'
 
 export const App: FC = () => {
