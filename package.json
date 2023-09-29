@@ -1,14 +1,14 @@
 {
-  "name": "webpack-template-typescript-react",
+  "name": "webpack-ts-preact",
   "version": "1.0.0",
-  "description": "",
+  "license": "MIT",
+  "author": "saulpalv",
   "scripts": {
     "dev": "webpack serve --mode=development",
     "build": "webpack",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "saulpalv",
-  "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@preact/signals": "^1.2.1",
@@ -22,8 +22,14 @@
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/webpack": "^5.28.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
+    "eslint": "^8.50.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.3",
     "sass": "^1.68.0",
