@@ -5,7 +5,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const PreactRefreshPlugin = require('@prefresh/webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 
 /** @returns { import('webpack').Configuration } */
@@ -40,26 +39,29 @@ module.exports = (env, argv) => {
                 ],
             }),
             new ForkTsCheckerWebpackPlugin(),
-            new PreactRefreshPlugin(),
+            // new PreactRefreshPlugin(),
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
-            /** https://preactjs.com/guide/v10/getting-started#aliasing-in-webpack */
-            "alias": {
-                "react": "preact/compat",
-                "react-dom/test-utils": "preact/test-utils",
-                "react-dom": "preact/compat",
-                "react/jsx-runtime": "preact/jsx-runtime"
-            },
         },
         module: {
             rules: [
                 {
+
                     test: /\.tsx?$/,
                     exclude: /node_modules/,
                     use: [
                         {
-                            loader: require.resolve('ts-loader'),
+                            loader: 'babel-loader',
+                            options: {
+                                presets: [
+                                    ["solid"]
+                                    // ['@babel/preset-env', { targets: 'defaults' }]
+                                ],
+                            },
+                        },
+                        {
+                            loader: 'ts-loader',
                             options: {
                                 transpileOnly: true,
                             },
@@ -69,11 +71,6 @@ module.exports = (env, argv) => {
                 {
                     test: /\.s?css$/i,
                     use: ['style-loader', 'css-loader', 'sass-loader'],
-                },
-                {
-                    test: /\.svg$/i,
-                    issuer: /\.[jt]sx?$/,
-                    use: ['@svgr/webpack'],
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/i,

@@ -1,7 +1,7 @@
-import { render } from "preact/compat"
-import { App } from "./App"
+import { render } from "solid-js/web"
+import { App } from "./app"
 
 render(
-  <App />,
-  document.getElementById('root')!
+  () => <App />,
+  document.getElementById("root")!
 )
